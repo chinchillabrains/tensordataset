@@ -27,19 +27,19 @@ class Dataset:
     def get_labels(self):
         return self._data_labels
 
-    def build_vocab(self):
-        bert_tokenizer_params=dict(lower_case=True)
-        reserved_tokens=["[PAD]", "[UNK]", "[START]", "[END]"]
+    def build_vocab(self, target_size = 1000):
+        bert_tokenizer_params = dict(lower_case=True)
+        reserved_tokens = ["[PAD]", "[UNK]", "[START]", "[END]"]
 
         bert_vocab_args = dict(
             # The target vocabulary size
-            vocab_size = 80000,
+            vocab_size = target_size,
             # Reserved tokens that must be included in the vocabulary
-            reserved_tokens=reserved_tokens,
+            reserved_tokens = reserved_tokens,
             # Arguments for `text.BertTokenizer`
-            bert_tokenizer_params=bert_tokenizer_params,
+            bert_tokenizer_params = bert_tokenizer_params,
             # Arguments for `wordpiece_vocab.wordpiece_tokenizer_learner_lib.learn`
-            learn_params={},
+            learn_params = {},
         )
 
         self._items_vocab = bert_vocab.bert_vocab_from_dataset(
@@ -49,4 +49,3 @@ class Dataset:
 
     def get_vocab(self):
         return self._items_vocab
-    
