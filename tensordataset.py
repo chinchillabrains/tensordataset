@@ -14,9 +14,12 @@ class Dataset:
         self._data_items = tf.data.Dataset.from_tensor_slices(
             list(map(lambda cols: cols[0], data))
         )
+        labels_list = list(map(lambda cols: cols[1], data))
+        self._labels_indexed = list(set(labels_list))
         self._data_labels = tf.data.Dataset.from_tensor_slices(
-            list(map(lambda cols: cols[1], data))
+            labels_list
         )
+        
         
     def get_items(self):
         return self._data_items
@@ -46,3 +49,4 @@ class Dataset:
 
     def get_vocab(self):
         return self._items_vocab
+    
